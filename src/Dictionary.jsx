@@ -14,7 +14,7 @@ export default function Dictionary(){
 
 const handleDictionary =()=>{
     if(!inputText){
-        setSuggestText("");
+        setSuggestText("Word not found in the dictionary.");
         return;
     }
 
