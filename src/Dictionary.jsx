@@ -1,47 +1,58 @@
 import React, { useState } from "react";
 
-export default function Dictionary(){
+const dictionary = [
+  { word: "React", meaning: "A JavaScript library for building user interfaces." },
+  { word: "Component", meaning: "A reusable building block in React." },
+  { word: "State", meaning: "An object that stores component data." },
+  { word: "Props", meaning: "Inputs passed to React components." }
+];
 
-    const [inputText, setInputText] = useState("");
-    const [suggestText, setSuggestText] = useState("");
-    const [searched, setSearched] = useState(false);
+export default function Dictionary() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [result, setResult] = useState("");
+  const [searched, setSearched] = useState(false);
 
-    const XDict = 
-[
-    { word: "React", meaning: "A JavaScript library for building user interfaces." },
-    { word: "Component", meaning: "A reusable building block in React." },
-    { word: "State", meaning: "An object that stores data for a component." }
-]
+  const handleSearch = () => {
+    const term = searchTerm.trim();
 
-const handleDictionary =()=>{
-    if(!inputText){
-        setSuggestText("");
-        setSearched(false);
-        return;
-    }
-
-    const foundWord = XDict.find((item)=>
-        item.word.toLowerCase() === inputText.toLowerCase()
-    );
+    if (!term) {
+      setResult("");
       setSearched(true);
-    if(foundWord){
-        setSuggestText(foundWord.meaning);
-      
-    }else{
-        setSuggestText("");
-        
+      return;
     }
-}
 
-return(
+    const found = dictionary.find(
+      (item) => item.word.toLowerCase() === term.toLowerCase()
+    );
+
+    if (found) {
+      setResult(found.meaning);
+    } else {
+      setResult("Word not found");
+    }
+
+    setSearched(true);
+  };
+
+  return (
     <div>
-        <h1>
-            Dictionary App
-        </h1>
-        <input type="text" value={inputText} placeholder="Search for a word" onChange={(e)=>setInputText(e.target.value)}/>
-        <button onClick={handleDictionary}>Search</button>
-       {searched && suggestText ? (<p>Definition: {suggestText}</p>) : (searched && !suggestText && (<p>word is not in the dictionary</p>))}
-       {}
+      <h1>Dictionary App</h1>
+
+      <input
+        type="text"
+        placeholder="Search for a word"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
+      <button onClick={handleSearch}>Search</button>
+
+      {searched && (
+        <div>
+          <h3>Meaning:</h3>
+          <p>{result}</p>
+        </div>
+      )}
     </div>
-)
+  );
 }
