@@ -25,7 +25,7 @@ const handleDictionary =()=>{
         setSuggestText(foundWord.meaning);
       
     }else{
-        setSuggestText("Word not found in the dictionary");
+        setSuggestText("Word not found in the dictionary.");
         
     }
 }
@@ -39,7 +39,6 @@ return(
         <button onClick={handleDictionary}>Search</button>
        <p>Definition:</p>
        <p>{suggestText}</p>
-       
     </div>
 )
 }
